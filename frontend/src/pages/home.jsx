@@ -20,38 +20,38 @@ const handelLogin = async () => {
       method: "eth_requestAccounts",
     });
 
-    const userAddress = accounts[0];
-    setAddress(userAddress);
+    // const userAddress = accounts[0];
+    // setAddress(userAddress);
 
-    const res = await fetch(
-      `/auth/noms?address=${userAddress}`
-    );
-    const { nonce } = await res.json();
+    // const res = await fetch(
+    //   `/auth/noms?address=${userAddress}`
+    // );
+    // const { nonce } = await res.json();
 
-    const provider = new ethers.BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
-    const signature = await signer.signMessage(nonce);
+    // const provider = new ethers.BrowserProvider(window.ethereum);
+    // const signer = await provider.getSigner();
+    // const signature = await signer.signMessage(nonce);
 
-    const verifyRes = await fetch("/auth/verify", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        address: userAddress,
-        signature,
-      }),
-    });
+    // const verifyRes = await fetch("/auth/verify", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     address: userAddress,
+    //     signature,
+    //   }),
+    // });
 
-    const data = await verifyRes.json();
+    // const data = await verifyRes.json();
 
-    if (data.token) {
-      localStorage.setItem("token", data.token);
-      setError("");
-      navigate("/main");
-    } else {
-      setError(data.error || "Login failed");
-    }
+    // if (data.token) {
+    //   localStorage.setItem("token", data.token);
+    setError("");
+    navigate("/main");
+    // } else {
+      //setError(data.error || "Login failed");
+    //}
   } catch (err) {
     if (err.code === -32002) {
       setError("MetaMask already processing request. Please check the wallet.");
