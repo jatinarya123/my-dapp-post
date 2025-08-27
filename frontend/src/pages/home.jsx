@@ -24,7 +24,7 @@ const handelLogin = async () => {
     setAddress(userAddress);
 
     const res = await fetch(
-      `http://localhost:3000/auth/noms?address=${userAddress}`
+      `/auth/noms?address=${userAddress}`
     );
     const { nonce } = await res.json();
 
@@ -32,7 +32,7 @@ const handelLogin = async () => {
     const signer = await provider.getSigner();
     const signature = await signer.signMessage(nonce);
 
-    const verifyRes = await fetch("http://localhost:3000/auth/verify", {
+    const verifyRes = await fetch("/auth/verify", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
